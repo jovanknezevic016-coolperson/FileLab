@@ -7,3 +7,5 @@ Just to be clear: Windows Lab File Helper is an independent project. It is not m
 Thanks for trying it out!
 
 — The Developer
+
+quick update:I changed everything to FileLab. No more Windows Lab.

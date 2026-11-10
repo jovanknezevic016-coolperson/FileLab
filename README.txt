@@ -1,42 +1,30 @@
-# Windows Lab File Helper 1.0
+# FileLab 1.0
 
-Hey! Thanks for checking out Windows Lab File Helper!
+Welcome to FileLab!
 
-I made this little tool to make working with files and folders easier. Instead of doing everything manually, you can use a few simple tools to get things done faster.
+FileLab is a simple browser-based file management tool designed to make working with files and folders easier.
 
-## What can it do?
+## Features
+- Duplicate Finder
+- Bulk File Renamer
+- Automatic Folder Organizer
+- Folder Size Analyzer
+- File Extension Helper
+- Folder Report Generator
 
-- **Duplicate Finder** – Find files that are exactly the same.
-- **Bulk Renamer** – Rename multiple files at once.
-- **Folder Organizer** – Sort files into different folders automatically.
-- **Size Analyzer** – See how much space your folders are taking up.
-- **Extension Helper** – Change file extensions.
-- **Folder Report** – Create a report of the files in a folder.
-
-## How to use it
-
+## How to use
 1. Download the project.
 2. Extract the ZIP file.
-3. Open the folder.
-4. Double-click `index.html`.
-5. Select a folder and start using the tools!
+3. Open `index.html` in Microsoft Edge or Google Chrome.
+4. Select a folder and start using FileLab!
 
-I recommend using Microsoft Edge or Google Chrome.
+## Requirements
+- Microsoft Edge or Google Chrome
+- No Java or Python installation required
 
-## A few things to know
+## Developer
+Created by Joca.
 
-- The app only accesses folders you give it permission to access.
-- Changing a file extension doesn't convert the actual file format.
-- Be careful when renaming or organizing important files.
-- It's always a good idea to keep a backup.
+Version: 1.0
 
-## About the project
-
-This is my own little project, built with HTML, CSS and JavaScript.
-
-**Version:** 1.0  
-**Developer:** Windows Lab
-
-Thanks for giving it a try. I hope it makes managing your files a little easier!
-
-— Windows Lab
+FileLab is an independent project and is not affiliated with or endorsed by Microsoft.
