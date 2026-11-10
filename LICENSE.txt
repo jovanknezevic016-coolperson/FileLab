@@ -1,0 +1,27 @@
+WINDOWS LAB FILE HELPER 1.0
+PERSONAL USE LICENSE
+
+Copyright (c) 2026 Windows Lab
+
+You are welcome to:
+
+- Download and use this application.
+- Keep a personal copy.
+- Share the original, unmodified project with others.
+
+Please do not:
+
+- Claim that you created the original application.
+- Sell or redistribute modified versions as the original project.
+- Remove the original developer credits.
+- Pretend this project is an official Microsoft or Windows product.
+
+DISCLAIMER
+
+This software is provided "as is", without any guarantees. Use it at your own risk. Always keep backups of important files before using file management features.
+
+This is an independent project and is not affiliated with, sponsored by, or endorsed by Microsoft Corporation.
+
+Thank you for respecting the work behind this project!
+
+— Windows Lab

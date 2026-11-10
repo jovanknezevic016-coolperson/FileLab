@@ -1,0 +1,9 @@
+## One last thing
+
+Just to be clear: Windows Lab File Helper is an independent project. It is not made by, affiliated with, sponsored by, or endorsed by Microsoft or any official Windows team.
+
+"Windows Lab" is simply the name I chose for this project.
+
+Thanks for trying it out!
+
+— The Developer

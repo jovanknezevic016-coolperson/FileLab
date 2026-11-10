@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Lab File Helper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+    <aside class="sidebar">
+        <h2>⬡ Windows Lab</h2>
+        <p class="subtitle">FILE HELPER 1.0</p>
+
+        <nav>
+            <button class="nav-btn active" data-tool="dashboard">🏠 Dashboard</button>
+            <button class="nav-btn" data-tool="duplicates">📑 Duplicate Finder</button>
+            <button class="nav-btn" data-tool="renamer">✏️ Bulk Renamer</button>
+            <button class="nav-btn" data-tool="organizer">📁 Folder Organizer</button>
+            <button class="nav-btn" data-tool="analyzer">📊 Size Analyzer</button>
+            <button class="nav-btn" data-tool="extensions">🧩 Extension Helper</button>
+            <button class="nav-btn" data-tool="report">📋 Folder Report</button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <span class="status-dot"></span> System ready
+        </div>
+    </aside>
+
+    <main class="main">
+        <header>
+            <div>
+                <h1 id="page-title">Dashboard</h1>
+                <p>Manage your files with ease.</p>
+            </div>
+            <button id="choose-folder">📂 Select Folder</button>
+        </header>
+
+        <div class="folder-info" id="folder-info">
+            No folder selected
+        </div>
+
+        <section id="dashboard" class="page">
+            <h2>Welcome to File Helper</h2>
+            <p class="muted">Your all-in-one file management workspace.</p>
+
+            <div class="cards">
+                <div class="card" data-open="duplicates">📑<h3>Duplicate Finder</h3><p>Find identical files.</p></div>
+                <div class="card" data-open="renamer">✏️<h3>Bulk Renamer</h3><p>Rename multiple files.</p></div>
+                <div class="card" data-open="organizer">📁<h3>Folder Organizer</h3><p>Sort files by type.</p></div>
+                <div class="card" data-open="analyzer">📊<h3>Size Analyzer</h3><p>Analyze folder sizes.</p></div>
+                <div class="card" data-open="extensions">🧩<h3>Extension Helper</h3><p>Change file extensions.</p></div>
+                <div class="card" data-open="report">📋<h3>Folder Report</h3><p>Generate a CSV report.</p></div>
+            </div>
+        </section>
+
+        <section id="duplicates" class="page hidden">
+            <h2>Duplicate Finder</h2>
+            <p class="muted">Find files with identical contents.</p>
+            <button id="scan-duplicates">🔍 Scan for duplicates</button>
+            <div id="duplicate-results" class="results"></div>
+        </section>
+
+        <section id="renamer" class="page hidden">
+            <h2>Bulk Renamer</h2>
+            <p class="muted">Add a prefix or suffix to files in the selected folder.</p>
+            <input id="rename-prefix" placeholder="Prefix (optional)">
+            <input id="rename-suffix" placeholder="Suffix (optional)">
+            <button id="preview-rename">Preview changes</button>
+            <div id="rename-results" class="results"></div>
+            <button id="apply-rename" class="hidden">Apply renames</button>
+        </section>
+
+        <section id="organizer" class="page hidden">
+            <h2>Folder Organizer</h2>
+            <p class="muted">Sort files into folders by extension.</p>
+            <button id="organize-files">📁 Organize files</button>
+            <div id="organize-results" class="results"></div>
+        </section>
+
+        <section id="analyzer" class="page hidden">
+            <h2>Size Analyzer</h2>
+            <p class="muted">See how much space your folders use.</p>
+            <button id="analyze-folder">📊 Analyze folder</button>
+            <div id="analyze-results" class="results"></div>
+        </section>
+
+        <section id="extensions" class="page hidden">
+            <h2>Extension Helper</h2>
+            <p class="muted">Change the extension of files in the selected folder. This does not convert file formats.</p>
+            <input id="extension-from" placeholder="Current extension, e.g. txt">
+            <input id="extension-to" placeholder="New extension, e.g. md">
+            <button id="preview-extension">Preview changes</button>
+            <div id="extension-results" class="results"></div>
+            <button id="apply-extension" class="hidden">Apply changes</button>
+        </section>
+
+        <section id="report" class="page hidden">
+            <h2>Folder Report</h2>
+            <p class="muted">Create a CSV inventory of files and their sizes.</p>
+            <button id="generate-report">📋 Generate CSV report</button>
+            <div id="report-results" class="results"></div>
+        </section>
+
+        <footer>Windows Lab File Helper 1.0 · Built with JavaScript</footer>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
