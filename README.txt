@@ -1,30 +1,14 @@
-# FileLab 1.0
+# FileLab
 
 Welcome to FileLab!
 
-FileLab is a simple browser-based file management tool designed to make working with files and folders easier.
+## How to launch
 
-## Features
-- Duplicate Finder
-- Bulk File Renamer
-- Automatic Folder Organizer
-- Folder Size Analyzer
-- File Extension Helper
-- Folder Report Generator
+1. Download and extract the FileLab folder.
+2. Open the extracted folder.
+3. Double-click **FileLab Launcher.html**.
+4. FileLab will open in your browser.
 
-## How to use
-1. Download the project.
-2. Extract the ZIP file.
-3. Open `index.html` in Microsoft Edge or Google Chrome.
-4. Select a folder and start using FileLab!
+Enjoy using FileLab!
 
-## Requirements
-- Microsoft Edge or Google Chrome
-- No Java or Python installation required
-
-## Developer
-Created by Joca.
-
-Version: 1.0
-
-FileLab is an independent project and is not affiliated with or endorsed by Microsoft.
+**FileLab — Incredibly lightweight. Absolutely perfect.**
