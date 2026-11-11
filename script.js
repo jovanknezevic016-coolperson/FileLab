@@ -9,7 +9,7 @@
 let selectedFolder = null;
 let renamePlan = [];
 let extensionPlan = [];
-
+let duplicateGroups = [];
 const $ = id => document.getElementById(id);
 
 const toolNames = {
@@ -110,9 +110,13 @@ async function walkFiles(folder, path = "") {
             files.push({
                 name,
                 path: relativePath,
-                handle
+                handle,
+                parentFolder: folder
             });
-        } else if (handle.kind === "directory") {
+       } else if (
+    handle.kind === "directory" &&
+    name !== "FileLab Trash"
+) {
             const nested = await walkFiles(handle, relativePath);
             files.push(...nested);
         }
@@ -145,7 +149,28 @@ function downloadCSV(filename, rows) {
 // ==========================================
 // FILE MOVE / RENAME
 // ==========================================
+async function getUniqueTrashName(folder, originalName) {
+    const dotIndex = originalName.lastIndexOf(".");
+    const hasExtension = dotIndex > 0;
 
+    const baseName = hasExtension
+        ? originalName.slice(0, dotIndex)
+        : originalName;
+
+    const extension = hasExtension
+        ? originalName.slice(dotIndex)
+        : "";
+
+    let candidate = originalName;
+    let number = 1;
+
+    while (await entryExists(folder, candidate)) {
+        candidate = baseName + " (" + number + ")" + extension;
+        number++;
+    }
+
+    return candidate;
+}
 async function moveFile(fileHandle, sourceFolder, destinationFolder, newName) {
 
     // Use the browser's native move operation when available.
@@ -243,7 +268,10 @@ $("choose-folder").addEventListener("click", async () => {
         $("folder-info").textContent =
             "📂 Selected folder: " + selectedFolder.name;
 
-        alert("Folder selected successfully!");
+        FileLabNotifications.success(
+    "Folder selected!",
+    "Your folder is ready to use in FileLab."
+);
     } catch (error) {
         if (error.name !== "AbortError") {
             alert("Could not open folder: " + error.message);
@@ -282,7 +310,7 @@ $("scan-duplicates").addEventListener("click", async () => {
             .filter(group => group.length > 1);
 
         const duplicates = [];
-
+        duplicateGroups = [];
         for (const group of possibleGroups) {
             const hashes = new Map();
 
@@ -308,35 +336,132 @@ $("scan-duplicates").addEventListener("click", async () => {
                 }
             }
         }
-
+        duplicateGroups = duplicates;                                     
         if (!duplicates.length) {
-            output.textContent =
-                "No duplicate files found. Scanned " +
-                files.length + " files.";
-            return;
-        }
+    output.textContent =
+        "No duplicate files found. Scanned " +
+        files.length + " files.";
 
+    FileLabNotifications.success(
+        "Scan completed!",
+        "Scanned " + files.length +
+        " files. No duplicate files were found."
+    );
+
+    return;
+}
         let html = "<h3>Duplicate groups found: " +
             duplicates.length + "</h3>";
 
         duplicates.forEach((group, index) => {
             html += "<p><b>Group " + (index + 1) + "</b></p><ul>";
 
-            group.forEach(item => {
-                html += "<li>" +
-                    escapeHTML(item.path) +
-                    " — " + formatSize(item.file.size) +
-                    "</li>";
-            });
+            group.forEach((item, itemIndex) => {
+    html += "<li>" +
+        "<label>" +
+        "<input type='checkbox' class='duplicate-select' " +
+        "data-group='" + index + "' " +
+        "data-item='" + itemIndex + "'> " +
+        escapeHTML(item.path) +
+        " — " + formatSize(item.file.size) +
+        "</label></li>";
+});
 
             html += "</ul>";
         });
-
+html += "<button id='delete-duplicates' type='button'>" +
+    "Move selected to FileLab Trash</button>";
         html += "<p>Scanned " + files.length +
             " files. No files were deleted.</p>";
 
         output.innerHTML = html;
+		$("delete-duplicates").addEventListener("click", async () => {
+    const checkboxes = output.querySelectorAll(".duplicate-select");
+    const selected = [...checkboxes].filter(box => box.checked);
 
+    if (!selected.length) {
+        alert("Please select at least one duplicate file.");
+        return;
+    }
+
+    // Never allow every copy in a group to be selected.
+    for (let i = 0; i < duplicateGroups.length; i++) {
+        const group = duplicateGroups[i];
+
+        const selectedCount = selected.filter(box =>
+            Number(box.dataset.group) === i
+        ).length;
+
+        if (selectedCount >= group.length) {
+            alert("You must keep at least one copy of every file group!");
+            return;
+        }
+    }
+
+    const confirmed = confirm(
+        "Move " + selected.length +
+        " selected files into FileLab Trash? You can recover them later."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const trashFolder = await selectedFolder.getDirectoryHandle(
+            "FileLab Trash",
+            { create: true }
+        );
+
+        let movedCount = 0;
+        let copiedOnlyCount = 0;
+        let failedCount = 0;
+
+        for (const box of selected) {
+            const groupIndex = Number(box.dataset.group);
+            const itemIndex = Number(box.dataset.item);
+
+            const item = duplicateGroups[groupIndex][itemIndex];
+
+            try {
+                const uniqueName = await getUniqueTrashName(
+                    trashFolder,
+                    item.name
+                );
+
+                const result = await moveFile(
+                    item.handle,
+                    item.parentFolder,
+                    trashFolder,
+                    uniqueName
+                );
+
+                if (result === "copied-not-removed") {
+                    copiedOnlyCount++;
+                } else {
+                    movedCount++;
+                }
+            } catch (error) {
+                failedCount++;
+                console.error("Could not move file:", error);
+            }
+        }
+
+        alert(
+            "FileLab Trash results:\\n" +
+            "Moved: " + movedCount +
+            "\\nCopied but original remains: " + copiedOnlyCount +
+            "\\nFailed: " + failedCount
+        );
+
+    } catch (error) {
+        alert("Could not access FileLab Trash: " + error.message);
+    }
+});
+FileLabNotifications.success(
+    "Duplicates detected!",
+    "Found " + duplicates.length +
+    " duplicate groups among " + files.length +
+    " scanned files. No files were deleted."
+);
     } catch (error) {
         output.textContent = "Scan failed: " + error.message;
     }

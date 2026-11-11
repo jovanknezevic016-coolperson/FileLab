@@ -17,6 +17,7 @@
         <nav>
             <button class="nav-btn active" data-tool="dashboard">🏠 Dashboard</button>
             <button class="nav-btn" data-tool="duplicates">📑 Duplicate Finder</button>
+			<button class="nav-btn" data-tool="scanner">🛡️ Virus Scanner</button>
             <button class="nav-btn" data-tool="renamer">✏️ Bulk Renamer</button>
             <button class="nav-btn" data-tool="organizer">📁 Folder Organizer</button>
             <button class="nav-btn" data-tool="analyzer">📊 Size Analyzer</button>
@@ -62,7 +63,21 @@
             <button id="scan-duplicates">🔍 Scan for duplicates</button>
             <div id="duplicate-results" class="results"></div>
         </section>
+<section id="scanner" class="page hidden">
+    <h2>🛡️ FileLab Virus Scanner</h2>
+    <p class="muted">
+        Check files for suspicious characteristics.
+        This is a basic scanner, not a full antivirus engine.
+    </p>
 
+    <button id="scan-folder">🔍 Start Folder Scan</button>
+
+    <div id="scanner-progress" class="results">
+        Ready to scan.
+    </div>
+
+    <div id="scanner-results" class="results"></div>
+</section>
         <section id="renamer" class="page hidden">
             <h2>Bulk Renamer</h2>
             <p class="muted">Add a prefix or suffix to files in the selected folder.</p>
@@ -107,7 +122,9 @@
         <footer>Windows Lab File Helper 1.0 · Built with JavaScript</footer>
     </main>
 </div>
-
+<script src="sounds.js"></script>
+<script src="notifications.js"></script>
+<script src="scanner.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
